@@ -9,7 +9,8 @@ import (
 )
 
 const (
-	_url = "http://services.runescape.com/m=hiscore_oldschool/hiscorepersonal.ws?user1=niriviaa"
+	_player = "niriviaa"
+	_url    = "http://services.runescape.com/m=hiscore_oldschool/hiscorepersonal.ws?user1=" + _player
 )
 
 type stat struct {
@@ -28,15 +29,12 @@ func main() {
 			rows = append(rows, res)
 		}
 	})
-	overall := newStat(rows[0], "", rows[2])
-	attack := newStat(rows[5], rows[4], rows[7])
-	fmt.Printf("%s\n", overall.Type)
-	fmt.Printf("%s\n", attack.Picture)
-	// var i int
-	// for _, a := range rows {
-	// 	fmt.Println(i, a)
-	// 	i++
-	// }
+	var stats []stat
+	for i := 0; i < 118; i = i + 5 {
+		stats = append(stats, newStat(rows[i], "", rows[i+2]))
+	}
+
+	fmt.Printf("%v", stats)
 }
 
 func newStat(t string, p string, v string) stat {
