@@ -52,6 +52,7 @@ func staticHandler(w http.ResponseWriter, req *http.Request) {
 func handler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
 		if r.URL.Path == "/" {
+			http.ServeFile(w, r, _templateRoot+"index.html")
 			return
 		}
 		render(w, r, oldSchoolHandler(r.URL.Path))

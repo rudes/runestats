@@ -1,0 +1,45 @@
+img.fork-me {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: 0;
+}
+
+body {
+    background: #003366;
+}
+
+div.title {
+    margin: auto;
+    height: auto;
+    text-align: center;
+    padding: 100px;
+}
+
+div.shields {
+    background: #aa381e;
+    width: 100%;
+    text-align: center;
+    padding: 5px;
+}
+
+div.shieldstext {
+    background: #aa381e;
+    width: 100%;
+    margin: auto;
+    text-align: center;
+    padding: 1px;
+}
+
+div.shieldstext a:link {
+    font-size: 20px;
+    color: #fff;
+}
+
+span.title {
+    font-size: 10vh;
+}
+
+span.subtitle {
+    font-size: 23px
+}

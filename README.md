@@ -1,11 +1,14 @@
 # RuneScape Stats [![Build Status](https://travis-ci.org/rudes/runestats.svg?branch=master)](https://travis-ci.org/rudes/runestats) [![Code Climate](https://codeclimate.com/github/rudes/runestats/badges/gpa.svg)](https://codeclimate.com/github/rudes/runestats) [![GoDoc](https://godoc.org/github.com/rudes/runestats?status.svg)](https://godoc.org/github.com/rudes/runestats)
 
-[Runescape Stat](http://runestats.stream/niriviaa) page for twitch.
+[Runescape](http://www.runescape.com/) [Stat](http://runestats.stream/niriviaa) page for twitch.
 
 ## Goals
 
 * Currently working on Old School RS Stats
 * Intend to add New RS Stats as I work
+* Generate image of stats based on url
+* Add new players to image generation queue on first request
+* Add homepage for random traffic
 
 ## ShoutOuts
 
