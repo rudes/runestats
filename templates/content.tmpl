@@ -1,0 +1,13 @@
+{{define "content"}}
+    <body>
+	<table>
+	{{ range .Stats }}
+	    <tr>
+		<td>{{ .Picture }}</td> 
+		<td>{{ .Type }}</td> 
+		<td>{{ .Value }}</td>
+	    </tr>
+	{{ end }}
+	</table>
+    </body>
+{{end}}
