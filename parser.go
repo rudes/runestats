@@ -30,8 +30,9 @@ func main() {
 		}
 	})
 	var stats []stat
-	for i := 0; i < 118; i = i + 5 {
-		stats = append(stats, newStat(rows[i], "", rows[i+2]))
+	stats = append(stats, newStat(rows[0], "", rows[2]))
+	for i := 5; i < 118; i = i + 5 {
+		stats = append(stats, newStat(rows[i], rows[i-1], rows[i+2]))
 	}
 
 	fmt.Printf("%v", stats)
