@@ -3,14 +3,14 @@ package main
 import (
 	"fmt"
 	"log"
+	"net/http"
 	"strings"
 
 	"github.com/PuerkitoBio/goquery"
 )
 
 const (
-	_player = "niriviaa"
-	_url    = "http://services.runescape.com/m=hiscore_oldschool/hiscorepersonal.ws?user1=" + _player
+	_oldSchoolURL = "http://services.runescape.com/m=hiscore_oldschool/hiscorepersonal.ws?user1="
 )
 
 type stat struct {
@@ -18,7 +18,19 @@ type stat struct {
 }
 
 func main() {
-	doc, err := goquery.NewDocument(_url)
+	//:8080/niriviaa
+	http.HandleFunc("/", handler)
+	http.ListenAndServe(":8080", nil)
+}
+
+func handler(w http.ResponseWriter, r *http.Request) {
+	player := r.URL.Path
+	stats := oldSchoolHandler(player)
+	fmt.Fprintf(w, "%v\n", stats)
+}
+
+func oldSchoolHandler(p string) []stat {
+	doc, err := goquery.NewDocument(_oldSchoolURL + p)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -35,7 +47,7 @@ func main() {
 		stats = append(stats, newStat(rows[i], rows[i-1], rows[i+2]))
 	}
 
-	fmt.Printf("%v", stats)
+	return stats
 }
 
 func newStat(t string, p string, v string) stat {
