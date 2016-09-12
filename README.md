@@ -9,5 +9,5 @@ Runescape stat page for twitch.
 
 ## ShoutOuts
 
-Testing with (Nurrivia)[https://www.twitch.tv/nurrivia] on his old school
-character (Niriviaa)[http://services.runescape.com/m=hiscore_oldschool/hiscorepersonal.ws?user1=niriviaa]
+Testing with [Nurrivia](https://www.twitch.tv/nurrivia) on his old school
+character [Niriviaa](http://services.runescape.com/m=hiscore_oldschool/hiscorepersonal.ws?user1=niriviaa)
