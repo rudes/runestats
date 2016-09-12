@@ -20,7 +20,8 @@ const (
 
 // Stat structure for housing Rune Stat data
 type Stat struct {
-	Type, Picture, Value string
+	Type, Picture template.HTML
+	Value         string
 }
 
 // Context structure for rendering templates
@@ -80,11 +81,14 @@ func oldSchoolHandler(p string) []Stat {
 
 func newStat(t string, p string, v string) Stat {
 	s := Stat{
-		Type:    strings.Replace(t, "\n", "", -1),
-		Picture: p,
+		Type:    template.HTML(strings.Replace(t, "\n", "", -1)),
+		Picture: template.HTML(p),
 		Value:   v}
-	s.Type = strings.Replace(s.Type, "overall.ws",
-		"http://services.runescape.com/m=hiscore_oldschool/overall.ws", -1)
+	s.Type = template.HTML(strings.Replace(string(s.Type), "overall.ws",
+		"http://services.runescape.com/m=hiscore_oldschool/overall.ws", -1))
+	s.Picture = template.HTML(strings.Replace(string(s.Picture),
+		"http://www.runescape.com/img/rsp777/hiscores",
+		"templates/static/images/", -1))
 	return s
 }
 
