@@ -7,8 +7,10 @@ img.fork-me {
 
 html{font-size:100%;}
 
+* { box-sizing: border-box; }
+
 body {
-    background: #003366;
+    background: #fff;
     font-size: 16px;
     line-height:1.2;
     width: 100%;
@@ -16,41 +18,102 @@ body {
 }
 
 div.title {
+    background: #007c7c;
     overflow: hidden;
-    position: relative;
     text-align: center;
-    height: 230px;
-    padding: 20px;
-    display: flex;
-    align-items: center;
+    padding-top: 72px;
+    padding-bottom: 120px;
+    color: #fff;
+}
+div.title h1 {
+    font-size: 443%;
+    font-family: 'Alegreya SC', serif;
+    margin: 0;
+    color: #000;
+}
+div.title small {
+    font-size: 120%;
+    font-family: 'Alegreya SC', serif;
+    color: #caf2e5;
+}
+
+div.content {
+    overflow: hidden;
+    display: block;
+    max-width: 980px;
+    margin: auto;
+    font-family: 'Roboto', sans-serif;
+    padding-top: 10px;
+}
+
+div.twitch {
+    float: left;
+    width: 66.66666%;
+    font-size: 156%;
+    font-weight: normal;
+    padding-left: 10px;
+    margin: auto;
+}
+
+div.twitch-icon {
+    float: left;
+    width: 33.333333%;
+    text-align: center;
+}
+
+div.twitch a:link {
+    text-decoration: none;
+    color: #6441A5;
+}
+
+.fa-twitch {
+    font-size: 1250%;
+    color: #6441A5;
+}
+
+div.howto {
+    float: left;
+    font-size: 156%;
+    width: 66.66666%;
+    margin: auto;
+    padding-left: 10px;
+    font-weight: normal;
+}
+
+div.example {
+    width: 33.3333%;
+    float: left;
+}
+
+p.subtext {
+    font-size: 87%;
+    color: #333;
+}
+
+@media screen and (max-width: 980px) {
+    div.twitch,
+    div.twitch-icon,
+    div.example,
+    div.howto {
+	float: none;
+	width: auto;
+    }
+    div.example { text-align: center; }
+div.howto pre { font-size: 55% }
 }
 
 div.shields {
-    background: #aa381e;
+    background: #000;
     text-align: center;
     width: 100%;
     overflow: hidden;
-    padding: 5px;
+    padding: 1px;
+    padding-top: 5px;
     position: relative;
 }
 
 div.shields a:link {
     font-size: 120%;
     color: #fff;
-}
-
-span.title {
-    text-align: center;
-    width: 100%;
-    font-size: 343%;
-    display: table-cell;
-    vertical-align: middle;
-}
-
-span.subtitle {
-    display: table-cell;
-    vertical-align: middle;
-    text-align: center;
-    width: 100%;
-    font-size: 100%;
+    text-decoration: none;
 }
