@@ -117,3 +117,8 @@ div.shields a:link {
     color: #fff;
     text-decoration: none;
 }
+div.shields a:visited {
+    font-size: 120%;
+    color: #fff;
+    text-decoration: none;
+}
