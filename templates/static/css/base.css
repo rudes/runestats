@@ -5,41 +5,52 @@ img.fork-me {
     border: 0;
 }
 
+html{font-size:100%;}
+
 body {
     background: #003366;
+    font-size: 16px;
+    line-height:1.2;
+    width: 100%;
+    margin: 0;
 }
 
 div.title {
-    margin: auto;
-    height: auto;
+    overflow: hidden;
+    position: relative;
     text-align: center;
-    padding: 100px;
+    height: 230px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
 }
 
 div.shields {
     background: #aa381e;
-    width: 100%;
     text-align: center;
+    width: 100%;
+    overflow: hidden;
     padding: 5px;
+    position: relative;
 }
 
-div.shieldstext {
-    background: #aa381e;
-    width: 100%;
-    margin: auto;
-    text-align: center;
-    padding: 1px;
-}
-
-div.shieldstext a:link {
-    font-size: 20px;
+div.shields a:link {
+    font-size: 120%;
     color: #fff;
 }
 
 span.title {
-    font-size: 10vh;
+    text-align: center;
+    width: 100%;
+    font-size: 343%;
+    display: table-cell;
+    vertical-align: middle;
 }
 
 span.subtitle {
-    font-size: 23px
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    width: 100%;
+    font-size: 100%;
 }
