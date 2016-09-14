@@ -1,6 +1,6 @@
-# RuneScape Stats [![Build Status](https://travis-ci.org/rudes/runestats.svg?branch=master)](https://travis-ci.org/rudes/runestats) [![Code Climate](https://codeclimate.com/github/rudes/runestats/badges/gpa.svg)](https://codeclimate.com/github/rudes/runestats) [![GoDoc](https://godoc.org/github.com/rudes/runestats?status.svg)](https://godoc.org/github.com/rudes/runestats)
+# RuneScape Stats [![Build Status](https://travis-ci.org/rudes/runestats.svg?branch=master)](https://travis-ci.org/rudes/runestats) [![Code Climate](https://codeclimate.com/github/rudes/runestats/badges/gpa.svg)](https://codeclimate.com/github/rudes/runestats) [![GoDoc](https://godoc.org/github.com/rudes/runestats?status.svg)](https://godoc.org/github.com/rudes/runestats) [![Docker Automated build](https://img.shields.io/docker/automated/rudes/runestats.svg?maxAge=2592000?style=plastic)](https://hub.docker.com/r/rudes/runestats)
 
-[Runescape](http://www.runescape.com/) [Stat](http://runestats.stream/niriviaa) page for twitch.
+[Runescape](http://www.runescape.com/) [Stat](http://runestats.stream/) page for twitch.
 
 ## Goals
 
