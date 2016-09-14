@@ -14,8 +14,8 @@ type Context struct {
 
 const (
 	_staticURL    = "/templates/static/"
-	_staticRoot   = "/home/rudes/go/src/github.com/rudes/runestats/templates/static/"
-	_templateRoot = "/home/rudes/go/src/github.com/rudes/runestats/templates/"
+	_staticRoot   = "/go/src/github.com/rudes/runestats/templates/static/"
+	_templateRoot = "/go/src/github.com/rudes/runestats/templates/"
 )
 
 func main() {
