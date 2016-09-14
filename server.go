@@ -19,7 +19,8 @@ const (
 )
 
 func main() {
-	//:8080/niriviaa
+	// TODO: Initialize app by building a directory
+	//	    tree for the images to be stored
 	http.HandleFunc("/", handler)
 	http.HandleFunc(_staticURL, staticHandler)
 	http.ListenAndServe(":8080", nil)
@@ -47,6 +48,9 @@ func handler(w http.ResponseWriter, r *http.Request) {
 			stats := oldSchoolHandler(r.URL.Path)
 			if stats != nil {
 				render(w, r, stats)
+			} else {
+				logIt("Old school handler returned nil")
+				http.NotFound(w, r)
 			}
 		}
 	}

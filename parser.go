@@ -46,6 +46,8 @@ func oldSchoolHandler(p string) []Stat {
 }
 
 func newStat(t string, p string, v string) Stat {
+	// TODO: Once painter is functional, change new stats to only
+	//	     keep the type of stat and the value, since that's all i need
 	s := Stat{
 		Type:    template.HTML(strings.Replace(t, "\n", "", -1)),
 		Picture: template.HTML(p),

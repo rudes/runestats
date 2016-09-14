@@ -5,6 +5,8 @@ import (
 	"os"
 )
 
+// TODO: Transactional SQL Logging
+
 func logIt(t ...interface{}) {
 	logFile := "./runestats.log"
 	f, _ := os.OpenFile(logFile,
