@@ -8,8 +8,8 @@
 
 ## Goals
 
-~~* Add [homepage](http://runestats.stream/) for random traffic~~
-~~* Move to [Docker Hub](https://hub.docker.com/r/rudes/runestats) Automated Builds~~
+* ~~Add [homepage](http://runestats.stream/) for random traffic~~
+* ~~Move to [Docker Hub](https://hub.docker.com/r/rudes/runestats) Automated Builds~~
 * Generate image for OldSchool Runescape
 * Add new players to image generation queue on first request
 * Add more games
