@@ -1,7 +1,6 @@
 package statapi
 
 import (
-	"encoding/json"
 	"html/template"
 	"io/ioutil"
 	"net/http"
@@ -15,7 +14,7 @@ const (
 	_oldSchoolAPIURL = "http://services.runescape.com/m=hiscore_oldschool/index_lite.ws?player="
 )
 
-func oldSchoolAPIHandler(p string) []OldSchoolRSStat {
+func OldSchoolAPIHandler(p string) []string {
 	res, err := http.Get(_oldSchoolAPIURL + p)
 	if err != nil {
 		return nil
@@ -25,13 +24,25 @@ func oldSchoolAPIHandler(p string) []OldSchoolRSStat {
 	if err != nil {
 		return nil
 	}
-
-	var stats []OldSchoolRSStat
-	err = json.Unmarshal(body, &stats)
-	if err != nil {
-		return nil
+	var stats []string
+	for _, row := range strings.Split(string(body), "\n") {
+		stat := newStatFromAPI(row)
+		if stat != "" {
+			stats = append(stats, stat)
+		}
 	}
 	return stats
+}
+
+func newStatFromAPI(row string) string {
+	if row == "" {
+		return ""
+	}
+	stats := strings.Split(row, ",")
+	if len(stats) > 0 {
+		return stats[1]
+	}
+	return ""
 }
 
 func OldSchoolHandler(p string) []Stat {
