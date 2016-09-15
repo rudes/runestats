@@ -12,7 +12,8 @@
 * ~~Move to [Docker Hub](https://hub.docker.com/r/rudes/runestats) Automated Builds~~
 * Generate image for OldSchool Runescape
 * Add new players to image generation queue on first request
-* Add more games
+* Add Docker Compose integration
+* Unit Testing might be a good idea
 
 ## Shout Outs
 
