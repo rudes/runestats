@@ -1,20 +1,47 @@
 package main
 
 import (
+	"encoding/json"
 	"html/template"
+	"io/ioutil"
+	"net/http"
 	"strings"
 
 	"github.com/PuerkitoBio/goquery"
 )
 
 const (
-	_oldSchoolURL = "http://services.runescape.com/m=hiscore_oldschool/hiscorepersonal.ws?user1="
+	_oldSchoolURL    = "http://services.runescape.com/m=hiscore_oldschool/hiscorepersonal.ws?user1="
+	_oldSchoolAPIURL = "http://services.runescape.com/m=hiscore_oldschool/index_lite.ws?player="
 )
 
 // Stat structure for housing Rune Stat data
 type Stat struct {
 	Type, Picture template.HTML
 	Value         string
+}
+
+type oldSchoolRSStat struct {
+	rank, level, experience int
+}
+
+func oldSchoolAPIHandler(p string) []oldSchoolRSStat {
+	res, err := http.Get(_oldSchoolAPIURL + p)
+	if err != nil {
+		return nil
+	}
+	defer res.Body.Close()
+	body, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		return nil
+	}
+
+	var stats []oldSchoolRSStat
+	err = json.Unmarshal(body, &stats)
+	if err != nil {
+		return nil
+	}
+	return stats
 }
 
 func oldSchoolHandler(p string) []Stat {
