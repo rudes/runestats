@@ -5,11 +5,13 @@ import (
 	"io"
 	"net/http"
 	"time"
+
+	"github.com/rudes/runestats/statapi"
 )
 
 // Context structure for rendering templates
 type Context struct {
-	Stats []Stat
+	Stats []statapi.Stat
 }
 
 const (
@@ -45,7 +47,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path == "/" {
 			http.ServeFile(w, r, _templateRoot+"index.html")
 		} else {
-			stats := oldSchoolHandler(r.URL.Path)
+			stats := statapi.OldSchoolHandler(r.URL.Path)
 			if stats != nil {
 				render(w, r, stats)
 			} else {
@@ -56,7 +58,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func render(w http.ResponseWriter, r *http.Request, stats []Stat) {
+func render(w http.ResponseWriter, r *http.Request, stats []statapi.Stat) {
 	ctx := Context{Stats: stats}
 	t, err := template.ParseFiles(_templateRoot+"base.tmpl", _templateRoot+"header.tmpl", _templateRoot+"content.tmpl")
 	if err != nil {
