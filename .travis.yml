@@ -1,7 +1,8 @@
 language: go
-
 go:
-    - tip
-
+- tip
 install:
-        - go get github.com/PuerkitoBio/goquery
+- go get github.com/PuerkitoBio/goquery
+notifications:
+  slack:
+    secure: pDU7OOgvKuhJU8IIfBqH4uzIF7Kgd5ZQBILGB5rDTo9HzHw+qhK8ghAeCDR8TvIUThTpHydTwEQhSnmROEQssrse8pOEm2nw3NEV98V2uBL7QUKDXK3176Q0v5OfGOOVtqJFHK1BJEPSb4k64VxKxgIQL1cSyEzpMYNV66eIHcDCwNQOYYuHtj/Njk1/+dP7TASKDJkmoy2AqotWEDObZ5gMojtwyENzV7hy34x9kOUEz5LHn8aLRCE4jhgiWI33SmDyDd4YHzJyqOgbDvXVGxg1L33/RyU+xKEF1u5PZfMBlp0af8iRwTi8GRf0jJVHKqjlLW6Y6l4Cq32IH8CbdusGbLmW60HJd9dLxe4UGwRitgXxVitDR/O3PPnS/e4CjO3VDpmgTr8tVpTxqm0SwLevr8vIYrrRy0VZXxBeihOvlEW/3iJa99ebwiyPlsbznyDiSFj1kyfIKwMy8Tc4+V89wJguIogWh7Rk1SM3ya3Mb4luQwzQ5Ns5VMaXXAPyNx+2TU8/bQ8egGZaNDouFw9u6ltq+2mqidIAtTuZI/aFPLEJuKZ3Vkqph1XnFOgqBXF3fdVUyTc87rT3bG4eC1zUsEN0sRG8boeML6xxDxDqSmLO3WBJVuRcU59VqqwcIdJbWrH80C6bdLuL2VhPGYvZWY0FgEXHN9r7SDyCFbk=
