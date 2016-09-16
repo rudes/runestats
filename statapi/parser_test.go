@@ -8,6 +8,7 @@ import (
 	"github.com/rudes/runestats/statapi"
 )
 
+// TestOldSchoolAPIHandler tests the data gathering from the OldSchool RS API
 func TestOldSchoolAPIHandler(t *testing.T) {
 	var expected []string
 	expected = append(expected, "798")

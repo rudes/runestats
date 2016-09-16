@@ -14,22 +14,21 @@ import (
 )
 
 const (
-	_staticDir     = "/go/src/github.com/rudes/runestats/templates/static/"
 	_dpi           = 72
-	_fontName      = _staticDir + "fonts/runescape_chat_font.ttf"
+	_fontName      = "fonts/runescape_chat_font.ttf"
 	_skillNum      = 35
 	_totalNum      = 20
 	_totalText     = 21
-	_baseImageFile = _staticDir + "images/os_rs_base.png"
+	_baseImageFile = "images/os_rs_base.png"
 	_imageWidth    = 315
 	_imageHeight   = 434
 )
 
 // NewRuneStat generates an image based on the stats argument
 // it will name the file by the player's name as a PNG file
-func NewRuneStat(player string, stats []string) {
+func NewRuneStat(player string, stats []string, _staticDir string) {
 	fontColor := color.RGBA{237, 219, 72, 255}
-	fontbits, err := ioutil.ReadFile(_fontName)
+	fontbits, err := ioutil.ReadFile(_staticDir + _fontName)
 	if err != nil {
 		log.Println(err)
 		return
@@ -39,7 +38,7 @@ func NewRuneStat(player string, stats []string) {
 		log.Println(err)
 		return
 	}
-	baseImage, err := os.Open(_baseImageFile)
+	baseImage, err := os.Open(_staticDir + _baseImageFile)
 	if err != nil {
 		log.Println(err)
 		return

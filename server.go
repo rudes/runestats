@@ -51,7 +51,9 @@ func handler(w http.ResponseWriter, r *http.Request) {
 			}
 			if f == nil {
 				player := strings.TrimSuffix(sf, ".png")
-				statimage.NewRuneStat(player, statapi.OldSchoolAPIHandler(player))
+				statimage.NewRuneStat(player,
+					statapi.OldSchoolAPIHandler(player),
+					_staticRoot)
 				f, err = os.Open(_staticRoot + "images/" + sf)
 				if err != nil {
 					http.NotFound(w, r)
