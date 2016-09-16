@@ -68,10 +68,10 @@ func NewRuneStat(player string, stats []string) {
 	_, err = c.DrawString(stats[3], pt)
 	left := []string{stats[1], stats[3], stats[2], stats[5],
 		stats[6], stats[7], stats[21], stats[23]}
-	right := []string{stats[1], stats[3], stats[2], stats[5],
-		stats[6], stats[7], stats[21]}
-	middle := []string{stats[1], stats[3], stats[2], stats[5],
-		stats[6], stats[7], stats[21], stats[23]}
+	middle := []string{stats[4], stats[17], stats[16], stats[18],
+		stats[13], stats[10], stats[19], stats[22]}
+	right := []string{stats[15], stats[14], stats[11], stats[8],
+		stats[12], stats[9], stats[20]}
 	drawCol(62, c, left)
 	drawCol(124, c, middle)
 	drawCol(186, c, right)
