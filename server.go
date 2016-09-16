@@ -4,9 +4,11 @@ import (
 	"html/template"
 	"io"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/rudes/runestats/statapi"
+	"github.com/rudes/runestats/statimage"
 )
 
 // Context structure for rendering templates
@@ -46,6 +48,19 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
 		if r.URL.Path == "/" {
 			http.ServeFile(w, r, _templateRoot+"index.html")
+		} else if strings.Contains(r.URL.Path, "png") {
+			sf := r.URL.Path[1:]
+			f, err := http.Dir(_staticRoot).Open(sf)
+			if err != nil {
+				http.NotFound(w, r)
+			}
+			if f == nil {
+				player := strings.TrimSuffix(sf, ".png")
+				statimage.NewRuneStat(player, statapi.OldSchoolAPIHandler(player))
+			}
+			content := io.ReadSeeker(f)
+			http.ServeContent(w, r, sf, time.Now(), content)
+
 		} else {
 			stats := statapi.OldSchoolHandler(r.URL.Path)
 			if stats != nil {
