@@ -14,7 +14,7 @@ import (
 )
 
 const (
-	_staticDir     = "/home/rudes/go/src/github.com/rudes/runestats/templates/static/"
+	_staticDir     = "/go/src/github.com/rudes/runestats/templates/static/"
 	_dpi           = 72
 	_fontName      = _staticDir + "fonts/runescape_chat_font.ttf"
 	_skillNum      = 35
