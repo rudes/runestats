@@ -8,7 +8,7 @@ import (
 )
 
 func TestNewRuneStat(t *testing.T) {
-	player := "niriviaa"
+	player := "peonpower"
 	stats := statapi.OldSchoolAPIHandler(player)
 	statimage.NewRuneStat(player, stats)
 }

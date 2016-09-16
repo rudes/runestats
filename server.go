@@ -1,7 +1,6 @@
 package main
 
 import (
-	"html/template"
 	"io"
 	"net/http"
 	"os"
@@ -11,11 +10,6 @@ import (
 	"github.com/rudes/runestats/statapi"
 	"github.com/rudes/runestats/statimage"
 )
-
-// Context structure for rendering templates
-type Context struct {
-	Stats []statapi.Stat
-}
 
 const (
 	_staticURL    = "/templates/static/"
@@ -40,7 +34,7 @@ func staticHandler(w http.ResponseWriter, req *http.Request) {
 			http.ServeContent(w, req, sf, time.Now(), content)
 			return
 		}
-		logIt("Unable to service content : ", err)
+		logIt("Unable to serve content : ", err)
 	}
 	http.NotFound(w, req)
 }
@@ -67,26 +61,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 			http.ServeContent(w, r, sf, time.Now(), content)
 
 		} else {
-			stats := statapi.OldSchoolHandler(r.URL.Path)
-			if stats != nil {
-				render(w, r, stats)
-			} else {
-				logIt("Old school handler returned nil")
-				http.NotFound(w, r)
-			}
+			http.NotFound(w, r)
 		}
-	}
-}
-
-func render(w http.ResponseWriter, r *http.Request, stats []statapi.Stat) {
-	ctx := Context{Stats: stats}
-	t, err := template.ParseFiles(_templateRoot+"base.tmpl", _templateRoot+"header.tmpl", _templateRoot+"content.tmpl")
-	if err != nil {
-		logIt("Unable to create template : ", err)
-		return
-	}
-	err = t.Execute(w, ctx)
-	if err != nil {
-		logIt("Unable to execute template : ", err)
 	}
 }
