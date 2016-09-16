@@ -11,10 +11,11 @@
 
 * ~~Add [homepage](http://runestats.stream/) for random traffic~~
 * ~~Move to [Docker Hub](https://hub.docker.com/r/rudes/runestats) Automated Builds~~
-* Generate image for OldSchool Runescape
-* Add new players to image generation queue on first request
+* ~~Add new players to image generation queue on first request~~
+* ~~Generate image for OldSchool Runescape~~
+* Fix Image Alignment
 * Add Docker Compose integration
-* Unit Testing might be a good idea
+* ~~Unit Testing might be a good idea~~
 
 ## Shout Outs
 
