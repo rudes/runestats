@@ -4,6 +4,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"path/filepath"
 	"strings"
 	"time"
 
@@ -18,11 +19,37 @@ const (
 )
 
 func main() {
-	// TODO: Initialize app by building a directory
-	//	    tree for the images to be stored
+	err := os.MkdirAll(_staticRoot+"images/os_rs", os.ModeDir)
+	if err != nil {
+		logIt("Unable to setup environment : ", err)
+		return
+	}
+	go emptyDir(_staticRoot + "images/os_rs")
 	http.HandleFunc("/", handler)
 	http.HandleFunc(_staticURL, staticHandler)
 	http.ListenAndServe(":8080", nil)
+}
+
+func emptyDir(dir string) {
+	time.Sleep(30 * time.Minute)
+	d, err := os.Open(dir)
+	if err != nil {
+		logIt("Unable to open directory : ", err)
+		return
+	}
+	defer d.Close()
+	names, err := d.Readdirnames(-1)
+	if err != nil {
+		logIt("Unable to read directory : ", err)
+		return
+	}
+	for _, name := range names {
+		err = os.RemoveAll(filepath.Join(dir, name))
+		if err != nil {
+			logIt("Unable to remove files : ", name, err)
+			return
+		}
+	}
 }
 
 func staticHandler(w http.ResponseWriter, req *http.Request) {
@@ -45,7 +72,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 			http.ServeFile(w, r, _templateRoot+"index.html")
 		} else if strings.Contains(r.URL.Path, "png") {
 			sf := r.URL.Path[1:]
-			f, err := http.Dir(_staticRoot + "images/").Open(sf)
+			f, err := http.Dir(_staticRoot + "images/os_rs").Open(sf)
 			if err != nil {
 				logIt("Creating new player image : ", err)
 			}
