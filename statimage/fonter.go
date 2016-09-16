@@ -82,7 +82,7 @@ func NewRuneStat(player string, stats []string, _staticDir string) {
 		return
 	}
 
-	livestat, err := os.Create(_staticDir + "images/os_rs" + player + ".png")
+	livestat, err := os.Create(_staticDir + "images/os_rs/" + player + ".png")
 	if err != nil {
 		log.Println(err)
 		return
