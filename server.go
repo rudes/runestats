@@ -4,6 +4,7 @@ import (
 	"html/template"
 	"io"
 	"net/http"
+	"os"
 	"strings"
 	"time"
 
@@ -52,11 +53,15 @@ func handler(w http.ResponseWriter, r *http.Request) {
 			sf := r.URL.Path[1:]
 			f, err := http.Dir(_staticRoot + "images/").Open(sf)
 			if err != nil {
-				http.NotFound(w, r)
+				logIt("Creating new player image : ", err)
 			}
 			if f == nil {
 				player := strings.TrimSuffix(sf, ".png")
 				statimage.NewRuneStat(player, statapi.OldSchoolAPIHandler(player))
+				f, err = os.Open(_staticRoot + "images/" + sf)
+				if err != nil {
+					http.NotFound(w, r)
+				}
 			}
 			content := io.ReadSeeker(f)
 			http.ServeContent(w, r, sf, time.Now(), content)
