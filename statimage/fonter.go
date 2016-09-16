@@ -25,6 +25,8 @@ const (
 	_imageHeight   = 434
 )
 
+// NewRuneStat generates an image based on the stats argument
+// it will name the file by the player's name as a PNG file
 func NewRuneStat(player string, stats []string) {
 	fontColor := color.RGBA{237, 219, 72, 255}
 	fontbits, err := ioutil.ReadFile(_fontName)
@@ -100,6 +102,7 @@ func NewRuneStat(player string, stats []string) {
 	}
 }
 
+// drawCol takes a column pixel number for X and draws the rows in the column
 func drawCol(col int, c *freetype.Context, rows []string) {
 	pt := freetype.Pt(col, 10+int(c.PointToFixed(_skillNum)>>6))
 	for _, s := range rows {
@@ -112,6 +115,7 @@ func drawCol(col int, c *freetype.Context, rows []string) {
 	}
 }
 
+// drawTotal draws the Total Level data from the stats
 func drawTotal(c *freetype.Context, total string) {
 	pt := freetype.Pt(214, 10+int(c.PointToFixed(_skillNum)>>6))
 	c.SetFontSize(_totalText)
