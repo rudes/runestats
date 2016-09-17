@@ -1,3 +1,15 @@
+/*
+
+RuneStats is a web service that provides live updating Skill Levels
+for Old School Runescape in the form of a PNG file so that it
+can be embeded in your Twitch Stream.
+
+RuneStats is best served with Docker:
+    docker pull rudes/runestats
+    docker run -d -p 8080:8080 --name=runestats rudes/runestats
+
+
+*/
 package main
 
 import (
@@ -88,25 +100,35 @@ func handler(w http.ResponseWriter, r *http.Request) {
 			if err != nil {
 				logIt("Creating new player image : ", err)
 				player := strings.TrimSuffix(sf, ".png")
-				err = statimage.NewRuneStat(player,
-					statapi.OldSchoolAPIHandler(player),
+				stats := statapi.OldSchoolAPIHandler(player)
+				if stats == nil {
+					logIt("Error Gathering Player stats")
+					http.NotFound(w, r)
+					return
+				}
+				err = statimage.NewRuneStat(player, stats,
 					_staticRoot)
 				if err != nil {
 					logIt("Error Creating Player image : ", err)
 					http.NotFound(w, r)
+					return
 				}
 			}
 			if f == nil {
+				f.Close()
 				f, err = os.Open(_staticRoot + "images/" + sf)
 				if err != nil {
 					http.NotFound(w, r)
+					return
 				}
 			}
+			defer f.Close()
 			content := io.ReadSeeker(f)
 			http.ServeContent(w, r, sf, time.Now(), content)
 
 		} else {
 			http.NotFound(w, r)
+			return
 		}
 	}
 }
