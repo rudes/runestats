@@ -13,7 +13,7 @@
 * ~~Move to [Docker Hub](https://hub.docker.com/r/rudes/runestats) Automated Builds~~
 * ~~Add new players to image generation queue on first request~~
 * ~~Generate image for OldSchool Runescape~~
-* Fix Image Alignment
+* ~~Fix Image Alignment~~
 * Add Docker Compose integration
 * ~~Unit Testing might be a good idea~~
 
