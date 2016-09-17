@@ -17,8 +17,7 @@ const (
 	_dpi           = 72
 	_fontName      = "fonts/runescape_chat_font.ttf"
 	_skillNum      = 35
-	_totalNum      = 20
-	_totalText     = 21
+	_totalText     = 22
 	_baseImageFile = "images/os_rs_base.png"
 	_imageWidth    = 315
 	_imageHeight   = 434
@@ -74,8 +73,8 @@ func NewRuneStat(player string, stats []string, _staticDir string) {
 	right := []string{stats[15], stats[14], stats[11], stats[8],
 		stats[12], stats[9], stats[20]}
 	drawCol(62, c, left)
-	drawCol(124, c, middle)
-	drawCol(186, c, right)
+	drawCol(161, c, middle)
+	drawCol(261, c, right)
 	drawTotal(c, stats[0])
 	if err != nil {
 		log.Println(err)
@@ -103,24 +102,24 @@ func NewRuneStat(player string, stats []string, _staticDir string) {
 
 // drawCol takes a column pixel number for X and draws the rows in the column
 func drawCol(col int, c *freetype.Context, rows []string) {
-	pt := freetype.Pt(col, 10+int(c.PointToFixed(_skillNum)>>6))
+	y := 45
+	pt := freetype.Pt(col, y)
 	for _, s := range rows {
 		_, err := c.DrawString(s, pt)
 		if err != nil {
 			log.Println(err)
 			return
 		}
-		pt.Y += c.PointToFixed(_skillNum * 1.5)
+		y += 50
+		pt = freetype.Pt(col, y)
 	}
 }
 
 // drawTotal draws the Total Level data from the stats
 func drawTotal(c *freetype.Context, total string) {
-	pt := freetype.Pt(214, 10+int(c.PointToFixed(_skillNum)>>6))
+	pt := freetype.Pt(213, 384)
 	c.SetFontSize(_totalText)
-	pt.Y += c.PointToFixed(_totalText * 1.5)
 	c.DrawString("Total level:", pt)
-	pt.X = 234
-	c.SetFontSize(_totalNum)
+	pt = freetype.Pt(239, 404)
 	c.DrawString(total, pt)
 }
