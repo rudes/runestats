@@ -37,8 +37,5 @@ func newStatFromAPI(row string) string {
 		return ""
 	}
 	stats := strings.Split(row, ",")
-	if len(stats) > 0 {
-		return stats[1]
-	}
-	return ""
+	return stats[1]
 }
