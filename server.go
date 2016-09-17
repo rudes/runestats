@@ -24,14 +24,26 @@ func main() {
 		logIt("Unable to setup environment : ", err)
 		return
 	}
-	go emptyDir(_staticRoot + "images/os_rs")
+	ticker := time.NewTicker(30 * time.Minute)
+	quit := make(chan struct{})
+	go func() {
+		for {
+			select {
+			case <-ticker.C:
+				emptyDir(_staticRoot + "images/os_rs")
+			case <-quit:
+				ticker.Stop()
+				return
+			}
+		}
+	}()
 	http.HandleFunc("/", handler)
 	http.HandleFunc(_staticURL, staticHandler)
 	http.ListenAndServe(":8080", nil)
+	close(quit)
 }
 
 func emptyDir(dir string) {
-	time.Sleep(30 * time.Minute)
 	d, err := os.Open(dir)
 	if err != nil {
 		logIt("Unable to open directory : ", err)
@@ -75,12 +87,12 @@ func handler(w http.ResponseWriter, r *http.Request) {
 			f, err := http.Dir(_staticRoot + "images/os_rs").Open(sf)
 			if err != nil {
 				logIt("Creating new player image : ", err)
-			}
-			if f == nil {
 				player := strings.TrimSuffix(sf, ".png")
 				statimage.NewRuneStat(player,
 					statapi.OldSchoolAPIHandler(player),
 					_staticRoot)
+			}
+			if f == nil {
 				f, err = os.Open(_staticRoot + "images/" + sf)
 				if err != nil {
 					http.NotFound(w, r)
