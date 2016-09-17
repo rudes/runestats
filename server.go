@@ -88,9 +88,13 @@ func handler(w http.ResponseWriter, r *http.Request) {
 			if err != nil {
 				logIt("Creating new player image : ", err)
 				player := strings.TrimSuffix(sf, ".png")
-				statimage.NewRuneStat(player,
+				err = statimage.NewRuneStat(player,
 					statapi.OldSchoolAPIHandler(player),
 					_staticRoot)
+				if err != nil {
+					logIt("Error Creating Player image : ", err)
+					http.NotFound(w, r)
+				}
 			}
 			if f == nil {
 				f, err = os.Open(_staticRoot + "images/" + sf)

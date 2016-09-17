@@ -7,7 +7,6 @@ import (
 	"image/draw"
 	"image/png"
 	"io/ioutil"
-	"log"
 	"os"
 
 	"github.com/golang/freetype"
@@ -25,33 +24,28 @@ const (
 
 // NewRuneStat generates an image based on the stats argument
 // it will name the file by the player's name as a PNG file
-func NewRuneStat(player string, stats []string, _staticDir string) {
+func NewRuneStat(player string, stats []string, _staticDir string) error {
 	fontColor := color.RGBA{237, 219, 72, 255}
 	fontbits, err := ioutil.ReadFile(_staticDir + _fontName)
 	if err != nil {
-		log.Println(err)
-		return
+		return err
 	}
 	font, err := freetype.ParseFont(fontbits)
 	if err != nil {
-		log.Println(err)
-		return
+		return err
 	}
 	baseImage, err := os.Open(_staticDir + _baseImageFile)
 	if err != nil {
-		log.Println(err)
-		return
+		return err
 	}
 	defer baseImage.Close()
 	img, err := png.Decode(baseImage)
 	if err != nil {
-		log.Println(err)
-		return
+		return err
 	}
 	dst, ok := img.(draw.Image)
 	if !ok {
-		log.Println("failed to make draw image")
-		return
+		return err
 	}
 	src := image.NewRGBA(image.Rect(0, 0, _imageWidth, _imageHeight))
 	draw.Draw(src, src.Bounds(), &image.Uniform{fontColor}, image.ZP, draw.Src)
@@ -72,47 +66,53 @@ func NewRuneStat(player string, stats []string, _staticDir string) {
 		stats[13], stats[10], stats[19], stats[22]}
 	right := []string{stats[15], stats[14], stats[11], stats[8],
 		stats[12], stats[9], stats[20]}
-	drawCol(62, c, left)
-	drawCol(161, c, middle)
-	drawCol(261, c, right)
+	err = drawCol(62, c, left)
+	if err != nil {
+		return err
+	}
+	err = drawCol(161, c, middle)
+	if err != nil {
+		return err
+	}
+	err = drawCol(261, c, right)
+	if err != nil {
+		return err
+	}
 	drawTotal(c, stats[0])
 	if err != nil {
-		log.Println(err)
-		return
+		return err
 	}
 
 	livestat, err := os.Create(_staticDir + "images/os_rs/" + player + ".png")
 	if err != nil {
-		log.Println(err)
-		return
+		return err
 	}
 	defer livestat.Close()
 	b := bufio.NewWriter(livestat)
 	err = png.Encode(b, dst)
 	if err != nil {
-		log.Println(err)
-		return
+		return err
 	}
 	err = b.Flush()
 	if err != nil {
-		log.Println(err)
-		return
+		return err
 	}
+	return nil
 }
 
 // drawCol takes a column pixel number for X and draws the rows in the column
-func drawCol(col int, c *freetype.Context, rows []string) {
+func drawCol(col int, c *freetype.Context, rows []string) error {
 	y := 45
 	pt := freetype.Pt(col, y)
 	for _, s := range rows {
 		_, err := c.DrawString(s, pt)
 		if err != nil {
-			log.Println(err)
-			return
+			return err
 		}
 		y += 50
 		pt = freetype.Pt(col, y)
 	}
+	return nil
 }
 
 // drawTotal draws the Total Level data from the stats
