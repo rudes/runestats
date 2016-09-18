@@ -7,17 +7,24 @@
 
 [Runescape](http://www.runescape.com/) [Stat](http://runestats.stream/) page for twitch.
 
-## Goals
+If you're a streamer, to use runestats simply create a new panel on your
+twitch stream, and type the url in.
+    http://runestats.stream/your_username.png
+That's it, we'll take care of the rest.
 
-* ~~Add [homepage](http://runestats.stream/) for random traffic~~
-* ~~Move to [Docker Hub](https://hub.docker.com/r/rudes/runestats) Automated Builds~~
-* ~~Add new players to image generation queue on first request~~
-* ~~Generate image for OldSchool Runescape~~
-* ~~Fix Image Alignment~~
-* Add Docker Compose integration
-* ~~Unit Testing might be a good idea~~
+If you're looking to host your own instance,
+runestats is best served with [docker](https://docker.com/)
+```bash
+docker pull rudes/runestats
+docker run -d -p 8080:8080 --name=runestats rudes/runestats
+```
 
 ## Shout Outs
 
 Testing with [Nurrivia](https://www.twitch.tv/nurrivia) on his old school
 character [Niriviaa](http://services.runescape.com/m=hiscore_oldschool/hiscorepersonal.ws?user1=niriviaa)
+
+## Licensing
+
+Runestats is licensed under the Apache License, Version 2.0. 
+See [LICENSE](https://github.com/rudes/runestats/blob/master/LICENSE) for the full text.
