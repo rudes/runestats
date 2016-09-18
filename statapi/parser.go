@@ -37,5 +37,5 @@ func newStatFromAPI(row string) string {
 		return ""
 	}
 	stats := strings.Split(row, ",")
-	return stats[1]
+	return strings.TrimSpace(stats[1])
 }
