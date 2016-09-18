@@ -9,7 +9,9 @@
 
 If you're a streamer, to use runestats simply create a new panel on your
 twitch stream, and type the url in.
-    http://runestats.stream/your_username.png
+```
+http://runestats.stream/your_username.png
+```
 That's it, we'll take care of the rest.
 
 If you're looking to host your own instance,
