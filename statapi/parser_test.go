@@ -1,11 +1,8 @@
-package statapi_test
+package statapi
 
 import (
-	"log"
 	"reflect"
 	"testing"
-
-	"github.com/rudes/runestats/statapi"
 )
 
 // TestOldSchoolAPIHandler tests the data gathering from the OldSchool RS API
@@ -39,10 +36,23 @@ func TestOldSchoolAPIHandler(t *testing.T) {
 	expected = append(expected, "-1")
 	expected = append(expected, "-1")
 
-	actual := statapi.OldSchoolAPIHandler("peonpower")
+	actual := OldSchoolAPIHandler("peonpower")
 
 	if !reflect.DeepEqual(expected, actual) {
-		log.Fatalf("Expected %v but got %v", expected, actual)
-		t.Fail()
+		t.Errorf("Expected %v but got %v", expected, actual)
+	}
+}
+
+// TestnewStatFromAPI tests the processing of data from OSRS API
+func TestNewStatFromAPI(t *testing.T) {
+	expected := "1"
+	actual := newStatFromAPI("-1, 1, 0")
+	if actual != expected {
+		t.Errorf("Expected %s but got %s", expected, actual)
+	}
+	expected = ""
+	actual = newStatFromAPI("")
+	if actual != expected {
+		t.Errorf("Expected %s but got %s", expected, actual)
 	}
 }
