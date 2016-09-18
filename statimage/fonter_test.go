@@ -14,5 +14,8 @@ func TestNewRuneStat(t *testing.T) {
 	os.MkdirAll(_staticDir+"images/os_rs/", os.ModeDir|os.ModePerm)
 	player := "peonpower"
 	stats := statapi.OldSchoolAPIHandler(player)
-	statimage.NewRuneStat(player, stats, _staticDir)
+	err := statimage.NewRuneStat(player, stats, _staticDir)
+	if err != nil {
+		t.Errorf("Error creating image : %s", err)
+	}
 }
