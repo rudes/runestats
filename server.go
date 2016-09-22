@@ -96,9 +96,8 @@ func handler(w http.ResponseWriter, r *http.Request) {
 			http.ServeFile(w, r, _templateRoot+"index.html")
 		} else if strings.Contains(r.URL.Path, "png") {
 			sf := r.URL.Path[1:]
-			f, err := http.Dir(_staticRoot + "images/os_rs").Open(sf)
-			if err != nil {
-				logIt("Creating new player image : ", err)
+			if _, err := os.Stat(_staticRoot + "images/os_rs/" + sf); os.IsNotExist(err) {
+				logIt("Creating new player image :", sf)
 				player := strings.TrimSuffix(sf, ".png")
 				stats := statapi.OldSchoolAPIHandler(player)
 				if stats == nil {
@@ -109,18 +108,15 @@ func handler(w http.ResponseWriter, r *http.Request) {
 				err = statimage.NewRuneStat(player, stats,
 					_staticRoot)
 				if err != nil {
-					logIt("Error Creating Player image : ", err)
+					logIt("Error Creating Player image :", err)
 					http.NotFound(w, r)
 					return
 				}
 			}
-			if f == nil {
-				f.Close()
-				f, err = os.Open(_staticRoot + "images/" + sf)
-				if err != nil {
-					http.NotFound(w, r)
-					return
-				}
+			f, err := http.Dir(_staticRoot + "images/os_rs").Open(sf)
+			if err != nil {
+				logIt("Unable to serve image :", err)
+				http.NotFound(w, r)
 			}
 			defer f.Close()
 			content := io.ReadSeeker(f)
