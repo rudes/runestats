@@ -2,7 +2,8 @@ image: golang:latest
 
 test:
     script:
-        - apt-get install bc
+        - apt-get update
+        - apt-get install bc -y
         - mkdir -p $GOPATH/src/github.com/rudes/runestats
         - cp -r . $GOPATH/src/github.com/rudes/runestats/
         - cd $GOPATH/src/github.com/rudes/runestats/
