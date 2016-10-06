@@ -26,7 +26,7 @@ staging:
     <<: *docker
     type: deploy
     script:
-        - docker login -u lab-ci-reg -p $CI_REG_TOKEN lab.cryocorp.co:5212
+        - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN lab.cryocorp.co:5212
         - docker build -t lab.cryocorp.co:5212/rudes/runestats.stream .
         - docker push lab.cryocorp.co:5212/rudes/runestats.stream
     when: on_success
