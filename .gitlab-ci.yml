@@ -1,20 +1,15 @@
-image: docker:latest
+image: golang:latest
+
+services:
+    - docker:dind
 
 before_script:
-    - apt-get update
-    - apt-get install -y bc g++ gcc libc6-dev make pkg-config
-    - rm -rf /var/lib/apt/lists/*
-    - curl -fsSL "https://golang.org/dl/go1.7.1.linux-amd64.tar.gz" -o golang.tar.gz
-    - tar -C /usr/local -xzf golang.tar.gz
-    - rm -rf golang.tar.gz
-    - export GOPATH=/go
-    - export PATH=$GOPATH/bin:/usr/local/go/bin:$PATH
-    - mkdir -p "$GOPATH/src" "$GOPATH/bin"
-    - chmod -R 777 "$GOPATH"
-    - mkdir -p $GOPATH/src/github.com/rudes/runestats
-    - cp -r . $GOPATH/src/github.com/rudes/runestats/
-    - cd $GOPATH/src/github.com/rudes/runestats/
-    - go get -t ./...
+        - apt-get update
+        - apt-get install -y bc
+        - mkdir -p $GOPATH/src/github.com/rudes/runestats
+        - cp -r . $GOPATH/src/github.com/rudes/runestats/
+        - cd $GOPATH/src/github.com/rudes/runestats/
+        - go get -t ./...
 
 test:
     script:
@@ -26,7 +21,7 @@ staging:
     type: deploy
     script:
         - docker login -u lab-ci-reg -p $CI_REG_TOKEN lab.cryocorp.co:5212
-        - docker build -t lab.cryocorp.co:5212/rudes/runestats.stream
+        - docker build -t lab.cryocorp.co:5212/rudes/runestats.stream .
         - docker push lab.cryocorp.co:5212/rudes/runestats.stream
     when: on_success
     only:
