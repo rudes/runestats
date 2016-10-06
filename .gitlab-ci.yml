@@ -6,7 +6,6 @@ image: golang:latest
         - chmod +x /usr/bin/docker
     services: ["docker:dind"]
     variables:
-        DOCKER_DRIVER: overlay
         DOCKER_HOST: tcp://docker:2375
 
 before_script:
