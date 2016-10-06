@@ -1,13 +1,25 @@
 image: golang:latest
 
-test:
-    script:
+before_script:
         - apt-get update
         - apt-get install bc -y
         - mkdir -p $GOPATH/src/github.com/rudes/runestats
         - cp -r . $GOPATH/src/github.com/rudes/runestats/
         - cd $GOPATH/src/github.com/rudes/runestats/
         - go get -t ./...
+
+test:
+    script:
         - go test -v ./...
         - chmod +x .labtest.sh
         - bash ./.labtest.sh
+
+staging:
+    type: deploy
+    script:
+        - docker login -u lab-ci-reg -p $CI_REG_TOKEN lab.cryocorp.co:5212
+        - docker build -t lab.cryocorp.co:5212/rudes/runestats.stream
+        - docker push lab.cryocorp.co:5212/rudes/runestats.stream
+    when: on_success
+    only:
+        - master
