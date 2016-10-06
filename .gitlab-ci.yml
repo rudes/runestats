@@ -17,7 +17,14 @@ test:
 staging:
     type: deploy
     script:
+        - cat deb http://http.debian.net/debian wheezy-backports main >> /etc/apt/sources.list.d/backports.list
+        - apt-get update
+        - apt-get install apt-transport-https ca-certificates
+        - apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+        - cat deb deb deb https://apt.dockerproject.org/repo debian-jessie main >> /etc/apt/sources.list.d/docker.list
+        - apt-get update
         - apt-get install docker-engine
+        - service docker start
         - docker login -u lab-ci-reg -p $CI_REG_TOKEN lab.cryocorp.co:5212
         - docker build -t lab.cryocorp.co:5212/rudes/runestats.stream
         - docker push lab.cryocorp.co:5212/rudes/runestats.stream
