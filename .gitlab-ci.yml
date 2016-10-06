@@ -1,11 +1,19 @@
-image: golang:latest
+image: docker:latest
 
 services:
     - docker:dind
 
 before_script:
         - apt-get update
-        - apt-get install -y bc
+        - apt-get install -y bc g++ gcc libc6-dev make pkg-config
+        - rm -rf /var/lib/apt/lists/*
+        - curl -fsSL "https://golang.org/dl/go$GOLANG_VERSION.linux-amd64.tar.gz" -o golang.tar.gz
+        - tar -c /usr/local -xzf golang.tar.gz
+        - rm golang.tar.gz
+        - export GOPATH /go
+        - export PATH $GOPATH/bin:/usr/local/go/bin:$PATH
+        - mkdir -p $GOPATH/src $GOPATH/bin
+        - chmod -R 777 "$GOPATH"
         - mkdir -p $GOPATH/src/github.com/rudes/runestats
         - cp -r . $GOPATH/src/github.com/rudes/runestats/
         - cd $GOPATH/src/github.com/rudes/runestats/
