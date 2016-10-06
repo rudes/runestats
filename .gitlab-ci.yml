@@ -17,6 +17,7 @@ test:
 staging:
     type: deploy
     script:
+        - apt-get install docker-engine
         - docker login -u lab-ci-reg -p $CI_REG_TOKEN lab.cryocorp.co:5212
         - docker build -t lab.cryocorp.co:5212/rudes/runestats.stream
         - docker push lab.cryocorp.co:5212/rudes/runestats.stream
