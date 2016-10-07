@@ -4,7 +4,7 @@ image: golang:latest
     before_script:
         - wget -q -O /usr/bin/docker https://get.docker.com/builds/Linux/x86_64/docker-1.10.3
         - chmod +x /usr/bin/docker
-    services: ["gitlab/dind:dind"]
+    services: ["gitlab/dind:latest"]
     variables:
         DOCKER_HOST: tcp://docker:2375
 
