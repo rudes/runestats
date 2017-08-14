@@ -1,8 +1,5 @@
 image: golang:latest
 
-services: 
-    - docker:dind
-
 before_script:
         - apt-get update
         - apt-get install -y bc
@@ -18,7 +15,12 @@ test:
         - bash ./.labtest.sh
 
 staging:
+    image: docker:latest
+    services: 
+        - docker:dind
     type: deploy
+    variables:
+        DOCKER_HOST: tcp://docker:2375
     script:
         - docker build -t lab.cryocorp.co:5212/rudes/runestats.stream .
     when: on_success
