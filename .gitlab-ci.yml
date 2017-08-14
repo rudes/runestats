@@ -1,5 +1,8 @@
 image: golang:latest
 
+services:
+    - docker:latest
+
 before_script:
         - apt-get update
         - apt-get install -y bc
