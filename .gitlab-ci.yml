@@ -21,7 +21,8 @@ staging:
     variables:
         DOCKER_HOST: tcp://docker:2375
     script:
-        - docker build -t lab.cryocorp.co:5212/rudes/runestats.stream:latest .
+        - docker build -t runestats .
+        - docker tag runestats lab.cryocorp.co:5212/rudes/runestats.stream:latest
         - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN lab.cryocorp.co:5212
         - docker push lab.cryocorp.co:5212/rudes/runestats.stream:latest
     when: on_success
