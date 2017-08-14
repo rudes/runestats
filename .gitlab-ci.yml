@@ -1,14 +1,13 @@
 image: golang:latest
 
-before_script:
-        - apt-get update
-        - apt-get install -y bc
-        - mkdir -p $GOPATH/src/github.com/rudes/runestats
-        - cp -r . $GOPATH/src/github.com/rudes/runestats/
-        - cd $GOPATH/src/github.com/rudes/runestats/
-        - go get -t ./...
-
 test:
+    before_script:
+            - apt-get update
+            - apt-get install -y bc
+            - mkdir -p $GOPATH/src/github.com/rudes/runestats
+            - cp -r . $GOPATH/src/github.com/rudes/runestats/
+            - cd $GOPATH/src/github.com/rudes/runestats/
+            - go get -t ./...
     script:
         - go test -v ./...
         - chmod +x .labtest.sh
