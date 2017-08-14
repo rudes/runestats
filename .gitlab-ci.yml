@@ -1,13 +1,5 @@
 image: golang:latest
 
-.docker: &docker
-    before_script:
-        - wget -q -O /usr/bin/docker https://get.docker.com/builds/Linux/x86_64/docker-1.10.3
-        - chmod +x /usr/bin/docker
-    services: ["gitlab/dind:latest"]
-    variables:
-        DOCKER_HOST: tcp://10.0.1.118:2375
-
 before_script:
         - apt-get update
         - apt-get install -y bc
@@ -23,7 +15,6 @@ test:
         - bash ./.labtest.sh
 
 staging:
-    <<: *docker
     type: deploy
     script:
         - docker build -t lab.cryocorp.co:5212/rudes/runestats.stream .
