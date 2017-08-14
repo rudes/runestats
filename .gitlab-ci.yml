@@ -1,7 +1,7 @@
 image: golang:latest
 
-services:
-    - docker:latest
+services: 
+    - docker:dind
 
 before_script:
         - apt-get update
@@ -21,7 +21,6 @@ staging:
     type: deploy
     script:
         - docker build -t lab.cryocorp.co:5212/rudes/runestats.stream .
-        - docker push lab.cryocorp.co:5212/rudes/runestats.stream
     when: on_success
     only:
         - master
