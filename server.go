@@ -26,8 +26,8 @@ import (
 
 const (
 	_staticURL    = "/templates/static/"
-	_staticRoot   = "/go/src/github.com/rudes/runestats/templates/static/"
-	_templateRoot = "/go/src/github.com/rudes/runestats/templates/"
+	_staticRoot   = "/app/templates/static/"
+	_templateRoot = "/app/templates/"
 )
 
 func main() {

@@ -1,4 +1,20 @@
-runestats:
-    build: .
-    ports: 
-        - "8080:8080"
+version: "3.9"
+
+services:
+    app:
+        build: .
+        ports:
+            - '8081:8080'
+        container_name: runestats.stream
+        networks:
+            - web
+        volumes:
+            - '/var/log:/var/log'
+        labels:
+            - traefik.enable=true
+            - traefik.http.routers.runestats.entrypoints=web
+            - traefik.http.routers.runestats.rule=Host("runestats.stream")
+
+networks:
+    web:
+        external: true
