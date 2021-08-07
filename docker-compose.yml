@@ -4,6 +4,7 @@ services:
     app:
         build: .
         container_name: runestats.stream
+        restart: always
         networks:
             - web
         volumes:
