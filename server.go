@@ -38,21 +38,23 @@ func main() {
 	}
 	ticker := time.NewTicker(30 * time.Minute)
 	quit := make(chan struct{})
-	go func() {
-		for {
-			select {
-			case <-ticker.C:
-				emptyDir(_staticRoot + "images/os_rs")
-			case <-quit:
-				ticker.Stop()
-				return
-			}
-		}
-	}()
+	defer close(quit)
+	go runner(ticker, quit)
 	http.HandleFunc("/", handler)
 	http.HandleFunc(_staticURL, staticHandler)
-	http.ListenAndServe(":8080", nil)
-	close(quit)
+	_ = http.ListenAndServe(":8080", nil)
+}
+
+func runner(t *time.Ticker, q chan struct{}) {
+	for {
+		select {
+		case <-t.C:
+			emptyDir(_staticRoot + "images/os_rs")
+		case <-q:
+			t.Stop()
+			return
+		}
+	}
 }
 
 func emptyDir(dir string) {
@@ -91,40 +93,41 @@ func staticHandler(w http.ResponseWriter, req *http.Request) {
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	if r.Method == "GET" {
-		if r.URL.Path == "/" {
-			http.ServeFile(w, r, _templateRoot+"index.html")
-		} else if strings.Contains(r.URL.Path, "png") {
-			sf := r.URL.Path[1:]
-			if _, err := os.Stat(_staticRoot + "images/os_rs/" + sf); os.IsNotExist(err) {
-				logIt("Creating new player image :", sf)
-				player := strings.TrimSuffix(sf, ".png")
-				stats := statapi.OldSchoolAPIHandler(player)
-				if stats == nil {
-					logIt("Error Gathering Player stats")
-					http.NotFound(w, r)
-					return
-				}
-				err = statimage.NewRuneStat(player, stats,
-					_staticRoot)
-				if err != nil {
-					logIt("Error Creating Player image :", err)
-					http.NotFound(w, r)
-					return
-				}
-			}
-			f, err := http.Dir(_staticRoot + "images/os_rs").Open(sf)
-			if err != nil {
-				logIt("Unable to serve image :", err)
-				http.NotFound(w, r)
-			}
-			defer f.Close()
-			content := io.ReadSeeker(f)
-			http.ServeContent(w, r, sf, time.Now(), content)
-
-		} else {
+	if r.Method != "GET" {
+		http.NotFound(w, r)
+		return
+	}
+	if r.URL.Path == "/" {
+		http.ServeFile(w, r, _templateRoot+"index.html")
+	}
+	if !strings.Contains(r.URL.Path, "png") {
+		http.NotFound(w, r)
+		return
+	}
+	sf := r.URL.Path[1:]
+	if _, err := os.Stat(_staticRoot + "images/os_rs/" + sf); os.IsNotExist(err) {
+		logIt("Creating new player image :", sf)
+		player := strings.TrimSuffix(sf, ".png")
+		stats := statapi.OldSchoolAPIHandler(player)
+		if stats == nil {
+			logIt("Error Gathering Player stats")
+			http.NotFound(w, r)
+			return
+		}
+		err = statimage.NewRuneStat(player, stats,
+			_staticRoot)
+		if err != nil {
+			logIt("Error Creating Player image :", err)
 			http.NotFound(w, r)
 			return
 		}
 	}
+	f, err := http.Dir(_staticRoot + "images/os_rs").Open(sf)
+	if err != nil {
+		logIt("Unable to serve image :", err)
+		http.NotFound(w, r)
+	}
+	defer f.Close()
+	content := io.ReadSeeker(f)
+	http.ServeContent(w, r, sf, time.Now(), content)
 }

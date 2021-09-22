@@ -10,7 +10,7 @@ import (
 
 // TestNewRuneStat tests the encoding of an image with a real players stats
 func TestNewRuneStat(t *testing.T) {
-	_staticDir := os.Getenv("GOPATH") + "/src/github.com/rudes/runestats/templates/static/"
+	_staticDir := "/app/templates/static/"
 	os.MkdirAll(_staticDir+"images/os_rs/", os.ModeDir|os.ModePerm)
 	player := "peonpower"
 	stats := statapi.OldSchoolAPIHandler(player)

@@ -48,7 +48,7 @@ func NewRuneStat(player string, stats []string, _staticDir string) error {
 		return err
 	}
 	src := image.NewRGBA(image.Rect(0, 0, _imageWidth, _imageHeight))
-	draw.Draw(src, src.Bounds(), &image.Uniform{fontColor}, image.ZP, draw.Src)
+	draw.Draw(src, src.Bounds(), &image.Uniform{fontColor}, image.Point{}, draw.Src)
 	c := freetype.NewContext()
 	c.SetDPI(_dpi)
 	c.SetFont(font)
@@ -57,9 +57,9 @@ func NewRuneStat(player string, stats []string, _staticDir string) error {
 	c.SetDst(dst)
 	c.SetSrc(src)
 	pt := freetype.Pt(62, 10+int(c.PointToFixed(_skillNum)>>6))
-	_, err = c.DrawString(stats[1], pt)
+	_, _ = c.DrawString(stats[1], pt)
 	pt.Y += c.PointToFixed(_skillNum * 1.5)
-	_, err = c.DrawString(stats[3], pt)
+	_, _ = c.DrawString(stats[3], pt)
 	left := []string{stats[1], stats[3], stats[2], stats[5],
 		stats[6], stats[7], stats[21], stats[23]}
 	middle := []string{stats[4], stats[17], stats[16], stats[18],
@@ -119,7 +119,7 @@ func drawCol(col int, c *freetype.Context, rows []string) error {
 func drawTotal(c *freetype.Context, total string) {
 	pt := freetype.Pt(213, 384)
 	c.SetFontSize(_totalText)
-	c.DrawString("Total level:", pt)
+	_, _ = c.DrawString("Total level:", pt)
 	pt = freetype.Pt(239, 404)
-	c.DrawString(total, pt)
+	_, _ = c.DrawString(total, pt)
 }
