@@ -1,14 +1,7 @@
 # RuneScape Stats
-[![Build Status](https://travis-ci.org/rudes/runestats.svg?branch=master)](https://travis-ci.org/rudes/runestats)
-[![Code Climate](https://codeclimate.com/github/rudes/runestats/badges/gpa.svg)](https://codeclimate.com/github/rudes/runestats)
-[![GoDoc](https://godoc.org/github.com/rudes/runestats?status.svg)](https://godoc.org/github.com/rudes/runestats)
-[![Docker Automated build](https://img.shields.io/docker/automated/rudes/runestats.svg?maxAge=2592000?style=plastic)](https://hub.docker.com/r/rudes/runestats) [![](https://images.microbadger.com/badges/image/rudes/runestats.svg)](https://microbadger.com/images/rudes/runestats "Get your own image badge on microbadger.com")
-[![Coverage Status](https://coveralls.io/repos/github/rudes/runestats/badge.svg?branch=master)](https://coveralls.io/github/rudes/runestats?branch=master)
 
-[Runescape](http://www.runescape.com/) [Stat](http://runestats.stream/) page for twitch.
+Static [Runescape](http://www.runescape.com/) [Stat](http://runestats.stream/) images for embedding.
 
-If you're a streamer, to use runestats simply create a new panel on your
-twitch stream, and type the url in.
 ```
 http://runestats.stream/your_username.png
 ```
