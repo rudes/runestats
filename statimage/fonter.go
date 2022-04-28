@@ -56,10 +56,6 @@ func NewRuneStat(player string, stats []string, _staticDir string) error {
 	c.SetClip(dst.Bounds())
 	c.SetDst(dst)
 	c.SetSrc(src)
-	pt := freetype.Pt(62, 10+int(c.PointToFixed(_skillNum)>>6))
-	_, _ = c.DrawString(stats[1], pt)
-	pt.Y += c.PointToFixed(_skillNum * 1.5)
-	_, _ = c.DrawString(stats[3], pt)
 	left := []string{stats[1], stats[3], stats[2], stats[5],
 		stats[6], stats[7], stats[21], stats[23]}
 	middle := []string{stats[4], stats[17], stats[16], stats[18],

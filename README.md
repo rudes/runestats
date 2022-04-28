@@ -16,8 +16,7 @@ docker run -d -p 8080:8080 --name=runestats rudes/runestats
 
 ## Shout Outs
 
-Testing with [Nurrivia](https://www.twitch.tv/nurrivia) on his old school
-character [Niriviaa](http://services.runescape.com/m=hiscore_oldschool/hiscorepersonal.ws?user1=niriviaa)
+Kyle Stanley for fixing that annoying rendering bug
 
 ## Licensing
 
